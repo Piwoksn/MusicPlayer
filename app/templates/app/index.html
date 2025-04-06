@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Music Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="">
+  <link rel="stylesheet" href="{% static '/app/style.css' %}">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+</head>
+<body>
+  <h1>Hi testing phase one</h1>
+  {% include 'app/main.html' %}
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src=""></script>
+  <script src=""></script>
+  <script src="{% static '/app/script.js' %}"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const audio = document.getElementById('fc-media');  // Replace with the actual ID of your audio element
+        const lyricsContainer = document.getElementById('song-lyrics');
+        let currentLyricIndex = 0;
+
+        // Retrieve the lyrics data as a JSON string
+        const lyricsData = JSON.parse(document.getElementById('song-lyrics').getAttribute('data-lyrics'));
+
+        audio.addEventListener('timeupdate', function () {
+          const currentTime = audio.currentTime;
+
+          // Find the current lyrics based on the time
+          while (currentLyricIndex < lyricsData.length - 1 && currentTime >= timeToSeconds(lyricsData[currentLyricIndex + 1].time)) {
+            currentLyricIndex++;
+          }
+
+          // Update the displayed lyrics
+          lyricsContainer.innerText = lyricsData[currentLyricIndex].lyrics;
+        });
+
+        function timeToSeconds(time) {
+          const [minutes, seconds] = time.split(':').map(parseFloat);
+          return minutes * 60 + seconds;
+        }
+      });
+
+  </script>
+</body>
+</html>
