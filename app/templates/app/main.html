@@ -26,10 +26,10 @@
   
   <center>
       <a href="{% if page_obj.has_previous %}?page={{page_obj.previous_page_number}}{% endif %}">
-      <i class="bi bi-skip-backward-fill">back</i>
-      </a> &rbsp; &nbsp; &nbsp;
+      <i class="bi bi-skip-backward-fill" style="color: white;"></i>
+      </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
       <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}">
-        <i class="bi bi-skip-forward-fill">forward </i>
+        <i class="bi bi-skip-forward-fill" style="color: white;"></i>
       </a>
   </center>
   <div class="lecteur">
