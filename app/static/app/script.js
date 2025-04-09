@@ -1,13 +1,27 @@
 var audio = {
   init: function () {
-    var $that = this;
+    console.log("audio.init called");
+
+    if (typeof $ === "undefined") {
+      console.error("jQuery not loaded");
+      return;
+    }
+
     $(function () {
-      $that.components.media();
+      console.log("DOM ready");
+      if (typeof $.fn.mediaelementplayer === "undefined") {
+        console.error("MediaElement.js not loaded properly");
+        return;
+      }
+
+      audio.components.media();
     });
   },
   components: {
     media: function (target) {
-      var media = $("audio.fc-media", target !== undefined ? target : "body");
+      var media = $("audio.fc-media", target || "body");
+      console.log("Found audio elements: ", media.length);
+
       if (media.length) {
         media.mediaelementplayer({
           audioHeight: 40,
@@ -26,8 +40,11 @@ var audio = {
           iPhoneUseNativeControls: true,
           AndroidUseNativeControls: true,
         });
+
+        console.log("MediaElement initialized.");
       }
     },
   },
 };
+
 audio.init();
